@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Slide</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        /* body{
+            background: red;
+        } */
+        .wrapper{
+            max-width: 355px;
+            margin:0 auto;
+        }
+        .slide_wrap{
+            position: relative;
+            overflow: hidden;
+            height: 240px;
+        }
+        .slide_wrap li{
+            overflow: hidden;
+            height: 240px;
+        }
+        .slider_list{
+            position: absolute;
+            width: 1420px;
+            display: flex;
+            left:0;
+            transition: .5s all;
+        }
+        .slider_list img{
+        /* width:100%;
+        height:100%;
+        object-fit: cover; */
+        }
+        .pages{
+            position: absolute;
+            left: 0;
+            bottom: 15px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .pages li{
+            width: 10px;
+            height: 10px;
+            /* border-radius: 50%; */
+            border: 1px solid #000;
+            border-radius: 50%;
+            margin: 0 5px;
+        }
+        .pages li:hover{
+            background: #000;
+        }
+        .pages li:nth-child(1){
+            background:#000;
+        }
+        .btn{
+            position: absolute;
+            top: 0;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color:#000;
+            width: 50px;
+            cursor: pointer;
+            z-index: 20;
+            font-size: 25px;
+            opacity: .7;
+        }
+        .btn:hover{
+            opacity: 1;
+        }
+        .btn_next{
+            right: 0;
+        }
+    </style>
+
+  </head>
+  <body>
+    <body>
+        <div class="wrapper">
+          <div class="slide_wrap">
+              <div class="btn btn_last" id="last"><i class="fas fa-angle-left"></i></div>
+              <div class="btn btn_next" id="next"><i class="fas fa-angle-right"></i></div>
+              <ul id="sliders" class="slider_list list-unstyled transition">
+                  <li><img src="images/twice.jpg" width="355px" height="240px" alt=""></li>
+                  <li><img src="images/slider_01.jpg" width="355px" height="240px" alt=""></li>
+                  <li><img src="images/slider_02.png" width="355px" height="240px" alt=""></li>
+                  <li><img src="images/twice.jpg" width="355px" height="240px" alt=""></li>
+              </ul>
+              <ul id="pages" class="pages">
+              </ul>
+          </div>
+        </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        // $(".pages li").first().css("background","white");
+        var slidewidth=800;
+        var slides=["slide1.jpeg", "slide2.jpeg", "slide3.jpeg", "slide4.jpeg" ];
+        var sliderCount=slides.length;
+        var slideNo=0;
+        
+        function goToPage(slideNo){
+        $(".pages li").eq(slideNo).css("background","white")
+                .siblings().css("background","transparent");
+            $(".slider_list").css("left", 0 - slideNo*355);
+        };
+        
+        $("#next").click(function(){
+            slideNo++;
+            if(slideNo>=sliderCount){
+                slideNo=0};
+            goToPage(slideNo);           
+        });
+        $("#last").click(function(){
+            slideNo--;
+            if(slideNo<0){
+                slideNo=sliderCount-1
+            };
+            goToPage(slideNo)            
+        });
+
+        for(i=0; i<sliderCount; i++){
+            $("#pages").append("<li></li>");
+            $("#sliders").append("<li><img src='images/"+slides[i]+"' alt=''></li>");
+            console.log(slides[i]);
+        };
+
+        $(".pages li").hover(function(){
+            slideNo=$(this).index();
+            $(this).css("background","white")
+                .siblings().css("background","transparent");
+            $(".slider_list").css("left", 0 - slideNo*355);
+        });
+        // $(".pages li").on("mouseenter", function(){
+        //     slideNo=$(this).index();
+        //     $(this).css("background","white")
+        //         .siblings().css("background","transparent");
+        //     $(".slider_list").css("left", 0 - slideNo*800);
+        // });
+    </script>
+  </body>
+</html>
